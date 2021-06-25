@@ -4,8 +4,6 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import javax.inject.Inject;
-import javax.persistence.EntityManager;
-import javax.transaction.Transactional;
 import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -16,12 +14,13 @@ import javax.ws.rs.core.MediaType;
 
 import org.demo.model.Account;
 import org.demo.model.AccountStatus;
+import org.demo.service.IAccountService;
 
 @Path("/account")
 public class AccountResource {
-
+	
 	@Inject
-	EntityManager entityManager;
+	private IAccountService accountService;
 	
     @GET
     @Produces(MediaType.APPLICATION_JSON)
@@ -29,24 +28,20 @@ public class AccountResource {
     		@QueryParam("page") @DefaultValue("0") int pageIndex,
     		@QueryParam("size") @DefaultValue("20") int pageSize) {
     	//LOG.info(String.format("Page=%s Size=%s", pageIndex, pageSize));
-    	return entityManager
-    			 .createNamedQuery("Accounts.findAll", Account.class) 
-    			 .getResultList(); 
+    	return accountService.list();
     }
     
     @GET
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Account get(@PathParam("id") Long id) {
-    	//return companyService.getCompany(id);
-    	return entityManager.find(Account.class, id);
+    	return accountService.find(id);
     }
     
     
     @GET
     @Path("/populate")
     @Produces(MediaType.TEXT_PLAIN)
-    @Transactional
     public String populate() {
     	Account account = new Account();
     	account.setAccountNumber(Long.valueOf(223432));
@@ -54,7 +49,7 @@ public class AccountResource {
     	account.setBalance(BigDecimal.valueOf(1882));
     	account.setCustomerName("My Customer");
     	account.setCustomerNumber(Long.valueOf(2));
-    	entityManager.persist(account);
+    	accountService.register(account);
         return account.toString();
     }
    
