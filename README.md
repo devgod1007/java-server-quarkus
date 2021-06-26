@@ -62,3 +62,9 @@ REST is easy peasy with this Hello World RESTEasy resource.
 This example demonstrate RESTEasy JSON serialisation by letting you list, add and remove quark types from a list. Quarked!
 
 [Related guide section...](https://quarkus.io/guides/rest-json#creating-your-first-json-rest-service)
+
+### Account Example
+
+List: http://localhost:8080/account/?page=1
+
+Get: http://localhost:8080/account/1
