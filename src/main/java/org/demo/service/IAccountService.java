@@ -6,9 +6,9 @@ import org.demo.model.Account;
 
 public interface IAccountService {
 	
-	List<Account> list();
+	List<Account> list(int firstResult, int maxResults);
 	
-	Account find(Long id);
+	Account find(long id);
 
 	Account register(Account account);
 

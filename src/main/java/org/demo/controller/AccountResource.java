@@ -25,10 +25,10 @@ public class AccountResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public List<Account> list(
-    		@QueryParam("page") @DefaultValue("0") int pageIndex,
-    		@QueryParam("size") @DefaultValue("20") int pageSize) {
-    	//LOG.info(String.format("Page=%s Size=%s", pageIndex, pageSize));
-    	return accountService.list();
+    		@QueryParam("page") @DefaultValue("1") int pageNumber,
+    		@QueryParam("size") @DefaultValue("5") int pageSize) {
+    	int firstResult = (pageNumber - 1) * pageSize + 1;
+    	return accountService.list(firstResult, pageSize);
     }
     
     @GET
