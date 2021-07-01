@@ -76,3 +76,8 @@ Get Account: curl -i -X GET http://localhost:8080/account/1
 Deposit Account: curl -i -X PUT http://localhost:8080/account/deposit/1?amount=256
 
 Withdraw Account: curl -i -X PUT http://localhost:8080/account/withdraw/1?amount=550.79
+
+### Misc
+
+
+

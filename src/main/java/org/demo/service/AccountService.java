@@ -50,22 +50,49 @@ public class AccountService implements IAccountService {
 	
 	@Override @Transactional
 	public Account deposit(long id, BigDecimal amount) {
+
 		LOG.debug(String.format("Deposit %s to Account %s", amount, id));
-		Objects.requireNonNull(amount);
-		if (amount.compareTo(BigDecimal.ZERO) <= 0) {
+
+		if (amount == null || amount.compareTo(BigDecimal.ZERO) <= 0) {
 			throw new ApplicationException();
 		}
+		
 		Account account = entityManager.find(Account.class, id);
 		if (account == null) {
 			throw new ApplicationException();
 		}
+		
 		BigDecimal newAmount = account.getBalance().add(amount);
 		account.setBalance(newAmount);
 		
 		return account;
+
 	}
 	
-	
+	@Override @Transactional
+	public Account withdraw(long id, BigDecimal amount) {
+
+		LOG.debug(String.format("Deposit %s to Account %s", amount, id));
+
+		if (amount == null || amount.compareTo(BigDecimal.ZERO) <= 0) {
+			throw new ApplicationException();
+		}
+		
+		Account account = entityManager.find(Account.class, id);
+		if (account == null) {
+			throw new ApplicationException();
+		}
+		
+		BigDecimal newAmount = account.getBalance().subtract(amount);
+		if (newAmount.compareTo(BigDecimal.ZERO) < 0) {
+			throw new ApplicationException();
+		}
+		account.setBalance(newAmount);
+		
+		return account;
+
+	}
+
 	@Override
 	@Transactional
 	public Account register(Account account) {

@@ -53,7 +53,7 @@ public class AccountResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Account withdraw(@PathParam("id") long id, @QueryParam("amount") BigDecimal amount) {
-    	return null ; //TODO: return accountService.withdraw(id, amount);
+    	return accountService.withdraw(id, amount);
     }
     
     
