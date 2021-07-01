@@ -7,7 +7,7 @@ import org.demo.model.Account;
 
 public interface IAccountService {
 	
-	List<Account> list(int firstResult, int maxResults);
+	List<Account> list(int pageNumber, int pageSize);
 	
 	Account find(long id);
 	

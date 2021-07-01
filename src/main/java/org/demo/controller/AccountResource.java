@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -29,8 +30,8 @@ public class AccountResource {
     public List<Account> list(
     		@QueryParam("page") @DefaultValue("1") int pageNumber,
     		@QueryParam("size") @DefaultValue("5") int pageSize) {
-    	int firstResult = (pageNumber - 1) * pageSize + 1;
-    	return accountService.list(firstResult, pageSize);
+
+    	return accountService.list(pageNumber, pageSize);
     }
     
     @GET
@@ -54,6 +55,13 @@ public class AccountResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Account withdraw(@PathParam("id") long id, @QueryParam("amount") BigDecimal amount) {
     	return accountService.withdraw(id, amount);
+    }
+    
+    @POST
+    @Consumes("application/json")
+    @Produces("application/json")
+    public Account register(Account account) {
+    	return accountService.register(account);
     }
     
     

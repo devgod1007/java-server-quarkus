@@ -22,21 +22,27 @@ public class AccountService implements IAccountService {
 	private EntityManager entityManager;
 	
 	@Override
-	public List<Account> list(int firstResult, int maxResults) {
-		firstResult = (firstResult <= 0)? 1 : firstResult;
-		maxResults = (maxResults <= 0)? 1 : maxResults;
+	public List<Account> list(int pageNumber, int pageSize) {
+		pageNumber = (pageNumber <= 0)? 1 : pageNumber;
+		pageSize = (pageSize <= 0)? 1 : pageSize;
+		int firstResult = (pageNumber - 1) * pageSize;
 		return entityManager.createNamedQuery("Accounts.findAll", Account.class)
-				.setFirstResult(firstResult).setMaxResults(maxResults)
+				.setFirstResult(firstResult).setMaxResults(pageSize)
 				.getResultList();
 	}
 	
 	@Override
 	public Account find(long id) {
+
+		LOG.debug(String.format("Find Account %s", id));
+
 		Account account = entityManager.find(Account.class, id);
 		if (account == null) {
 			throw new ApplicationException(String.format("Failed to find Account with ID='%s'.", id));
 		}
+		
 		return account;
+
 	}
 	
 	@Override

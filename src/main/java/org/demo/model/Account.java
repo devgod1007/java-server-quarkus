@@ -12,8 +12,8 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Version;
 
 @Entity 
-@NamedQuery(name = "Accounts.findAll", query = "SELECT a FROM Account a ORDER BY a.accountNumber")
-@NamedQuery(name = "Accounts.findByAccountNumber", query = "SELECT a FROM Account a WHERE a.accountNumber = :accountNumber ORDER BY a.accountNumber")
+@NamedQuery(name = "Accounts.findAll", query = "SELECT a FROM Account a ORDER BY a.id ASC")
+@NamedQuery(name = "Accounts.findByAccountNumber", query = "SELECT a FROM Account a WHERE a.accountNumber = :accountNumber ORDER BY a.id ASC")
 public class Account {
 
 	@Id
@@ -23,7 +23,7 @@ public class Account {
 	private Long accountNumber;
 	private Long customerNumber;
 	private String customerName;
-	private BigDecimal balance;
+	private BigDecimal balance = BigDecimal.ZERO;
 	private AccountStatus accountStatus = AccountStatus.OPEN;
 	@Version @Column(nullable = false)
     private long version = 0L;

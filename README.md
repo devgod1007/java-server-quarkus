@@ -71,11 +71,15 @@ Get: http://localhost:8080/account/1
 
 ### Account Links
 
+List Accounts: curl -i -X GET http://localhost:8080/account/
+
 Get Account: curl -i -X GET http://localhost:8080/account/1
 
 Deposit Account: curl -i -X PUT http://localhost:8080/account/deposit/1?amount=256
 
 Withdraw Account: curl -i -X PUT http://localhost:8080/account/withdraw/1?amount=550.79
+
+Register Account: curl -i -X POST -H "Content-Type:application/json" -d "{\"accountNumber\":\"01783297324332\",\"customerNumber\":\"784354035943\",\"customerName\":\"Customer9282\"}" http://localhost:8080/account/
 
 ### Misc
 
