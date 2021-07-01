@@ -1,5 +1,6 @@
 package org.demo.service;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Objects;
 
@@ -10,9 +11,12 @@ import javax.transaction.Transactional;
 
 import org.demo.ApplicationException;
 import org.demo.model.Account;
+import org.jboss.logging.Logger;
 
 @ApplicationScoped
 public class AccountService implements IAccountService {
+	
+	private static final Logger LOG = Logger.getLogger(AccountService.class);
 
 	@Inject
 	private EntityManager entityManager;
@@ -42,6 +46,23 @@ public class AccountService implements IAccountService {
 			throw new ApplicationException();
 		}
 		return matches.get(0);
+	}
+	
+	@Override @Transactional
+	public Account deposit(long id, BigDecimal amount) {
+		LOG.debug(String.format("Deposit %s to Account %s", amount, id));
+		Objects.requireNonNull(amount);
+		if (amount.compareTo(BigDecimal.ZERO) <= 0) {
+			throw new ApplicationException();
+		}
+		Account account = entityManager.find(Account.class, id);
+		if (account == null) {
+			throw new ApplicationException();
+		}
+		BigDecimal newAmount = account.getBalance().add(amount);
+		account.setBalance(newAmount);
+		
+		return account;
 	}
 	
 	
