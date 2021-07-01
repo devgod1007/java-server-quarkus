@@ -11,7 +11,8 @@ public class ApplicationExceptionMapper implements ExceptionMapper<ApplicationEx
 
 	@Override
 	public Response toResponse(ApplicationException exception) {
-		return Response.status(Response.Status.BAD_REQUEST).build();
+		String json = String.format("{\"error\":\"%s\"}", exception.getMessage());
+		return Response.status(Response.Status.BAD_REQUEST).entity(json).build();
 	}
 
 }

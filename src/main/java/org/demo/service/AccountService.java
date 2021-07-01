@@ -32,7 +32,11 @@ public class AccountService implements IAccountService {
 	
 	@Override
 	public Account find(long id) {
-		return entityManager.find(Account.class, id);
+		Account account = entityManager.find(Account.class, id);
+		if (account == null) {
+			throw new ApplicationException(String.format("Failed to find Account with ID='%s'.", id));
+		}
+		return account;
 	}
 	
 	@Override
@@ -59,7 +63,7 @@ public class AccountService implements IAccountService {
 		
 		Account account = entityManager.find(Account.class, id);
 		if (account == null) {
-			throw new ApplicationException();
+			throw new ApplicationException(String.format("Failed to find Account with ID='%s'.", id));
 		}
 		
 		BigDecimal newAmount = account.getBalance().add(amount);
@@ -80,12 +84,12 @@ public class AccountService implements IAccountService {
 		
 		Account account = entityManager.find(Account.class, id);
 		if (account == null) {
-			throw new ApplicationException();
+			throw new ApplicationException(String.format("Failed to find Account with ID='%s'.", id));
 		}
 		
 		BigDecimal newAmount = account.getBalance().subtract(amount);
 		if (newAmount.compareTo(BigDecimal.ZERO) < 0) {
-			throw new ApplicationException();
+			throw new ApplicationException(String.format("Account '%s' has insufficient funds.", id));
 		}
 		account.setBalance(newAmount);
 		
