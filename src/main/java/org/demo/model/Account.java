@@ -2,6 +2,7 @@ package org.demo.model;
 
 import java.math.BigDecimal;
 
+import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,10 +11,11 @@ import javax.persistence.Id;
 import javax.persistence.NamedQuery;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Version;
-
+// Cacheble & Validator
 @Entity 
 @NamedQuery(name = "Accounts.findAll", query = "SELECT a FROM Account a ORDER BY a.id ASC")
 @NamedQuery(name = "Accounts.findByAccountNumber", query = "SELECT a FROM Account a WHERE a.accountNumber = :accountNumber ORDER BY a.id ASC")
+@Cacheable // Enable Local Caching / Not A Clustered Cache By Default
 public class Account {
 
 	@Id
