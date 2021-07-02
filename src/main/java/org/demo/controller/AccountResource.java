@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.validation.Valid;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
@@ -23,7 +24,7 @@ import org.demo.service.IAccountService;
 public class AccountResource {
 	
 	@Inject
-	private IAccountService accountService;
+	IAccountService accountService;
 	
     @GET
     @Produces(MediaType.APPLICATION_JSON)
@@ -60,7 +61,7 @@ public class AccountResource {
     @POST
     @Consumes("application/json")
     @Produces("application/json")
-    public Account register(Account account) {
+    public Account register(@Valid Account account) {
     	return accountService.register(account);
     }
     

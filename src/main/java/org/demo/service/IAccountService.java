@@ -3,6 +3,8 @@ package org.demo.service;
 import java.math.BigDecimal;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.demo.model.Account;
 
 public interface IAccountService {
@@ -17,6 +19,6 @@ public interface IAccountService {
 	
 	Account withdraw(long id, BigDecimal amount);
 
-	Account register(Account account);
+	Account register(@Valid Account account);
 
 }

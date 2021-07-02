@@ -11,6 +11,10 @@ import javax.persistence.Id;
 import javax.persistence.NamedQuery;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Version;
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 // Cacheble & Validator
 @Entity 
 @NamedQuery(name = "Accounts.findAll", query = "SELECT a FROM Account a ORDER BY a.id ASC")
@@ -22,11 +26,17 @@ public class Account {
 	@SequenceGenerator(name = "accountsSequence", sequenceName = "accounts_id_seq", allocationSize = 1, initialValue = 10)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "accountsSequence")
 	private Long id;
+	@NotNull(message="AccountNumber must not be null") @Min(value=1L, message="AccountNumber must not be zero")
 	private Long accountNumber;
+	@NotNull(message="CustomerNumber must not be null") @Min(value=1L, message="CustomerNumber must not be zero")
 	private Long customerNumber;
+	@NotBlank(message="CustomerName must not be blank")
 	private String customerName;
+	@DecimalMin(value = "0.0", inclusive = true, message="Balance must not be negative")
 	private BigDecimal balance = BigDecimal.ZERO;
+	@NotNull(message="AccountStatus must not be null")
 	private AccountStatus accountStatus = AccountStatus.OPEN;
+	@Min(value=0L, message="Version must not be negative")
 	@Version @Column(nullable = false)
     private long version = 0L;
 
@@ -68,6 +78,11 @@ public class Account {
 	}
 	public long getVersion() {
 		return version;
+	}
+	@Override
+	public String toString() {
+		String fmt = "Account [id=%s, accountNumber=%s, customerNumber=%s, customerName=%s, balance=%s, accountStatus=%s, version=%s]";
+		return String.format(fmt, id, accountNumber, customerNumber, customerName, balance, accountStatus, version);
 	}
 
 }

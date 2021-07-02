@@ -8,6 +8,7 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
+import javax.validation.Valid;
 
 import org.demo.ApplicationException;
 import org.demo.model.Account;
@@ -19,7 +20,7 @@ public class AccountService implements IAccountService {
 	private static final Logger LOG = Logger.getLogger(AccountService.class);
 
 	@Inject
-	private EntityManager entityManager;
+	EntityManager entityManager;
 	
 	@Override
 	public List<Account> list(int pageNumber, int pageSize) {

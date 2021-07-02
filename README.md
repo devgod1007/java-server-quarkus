@@ -81,6 +81,16 @@ Withdraw Account: curl -i -X PUT http://localhost:8080/account/withdraw/1?amount
 
 Register Account: curl -i -X POST -H "Content-Type:application/json" -d "{\"accountNumber\":\"01783297324332\",\"customerNumber\":\"784354035943\",\"customerName\":\"Customer9282\"}" http://localhost:8080/account/
 
+### Extensions
+
+mvn quarkus:add-extension -Dextensions="hibernate-validator"
+mvn quarkus:add-extension -Dextensions="cache"
+
+### Resources
+
+
+https://quarkus.io/guides/hibernate-orm
+
 ### Misc
 
 
