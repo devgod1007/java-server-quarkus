@@ -15,7 +15,7 @@ import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-// Cacheble & Validator
+
 @Entity 
 @NamedQuery(name = "Accounts.findAll", query = "SELECT a FROM Account a ORDER BY a.id ASC")
 @NamedQuery(name = "Accounts.findByAccountNumber", query = "SELECT a FROM Account a WHERE a.accountNumber = :accountNumber ORDER BY a.id ASC")

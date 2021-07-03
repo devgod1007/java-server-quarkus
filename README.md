@@ -83,12 +83,14 @@ Register Account: curl -i -X POST -H "Content-Type:application/json" -d "{\"acco
 
 ### Extensions
 
+mvn quarkus:add-extension -Dextensions="quarkus-hibernate-orm"
 mvn quarkus:add-extension -Dextensions="hibernate-validator"
 mvn quarkus:add-extension -Dextensions="cache"
 
 ### Resources
 
-
+https://quarkus.io/guides/rest-json
+https://quarkus.io/guides/cache
 https://quarkus.io/guides/hibernate-orm
 
 ### Misc

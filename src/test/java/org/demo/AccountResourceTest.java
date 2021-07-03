@@ -94,4 +94,41 @@ public class AccountResourceTest {
 
 	}
 
+	
+	@Test
+	@Order(1)
+	public void testAccountRegisterSuccess() {
+
+		Account newAccount = new Account();
+		newAccount.setAccountNumber(1782924367324L);
+		newAccount.setCustomerNumber(8217397629232L);
+		newAccount.setCustomerName("Customer Name");
+		newAccount.setBalance(new BigDecimal("283.12"));
+		
+		Account registeredAccount = given()
+				.contentType(ContentType.JSON)
+				.body(newAccount)
+				.when().accept(ContentType.JSON).post("/account/")
+				.then().statusCode(200)
+				.extract().as(Account.class);
+		
+		assertThat(registeredAccount, notNullValue());
+		
+		Account account = given()
+				.contentType(ContentType.JSON)
+				.when().accept(ContentType.JSON).get("/account/{id}", registeredAccount.getId())
+				.then().statusCode(200)
+				.extract().as(Account.class);
+
+		assertThat(account, notNullValue());
+		assertThat(account.getAccountNumber(), equalTo(newAccount.getAccountNumber()));
+		assertThat(account.getCustomerNumber(), equalTo(newAccount.getCustomerNumber()));
+		assertThat(account.getCustomerName(), equalTo(newAccount.getCustomerName()));
+		assertThat(account.getBalance(), equalTo(newAccount.getBalance()));
+		assertThat(account.getAccountStatus(), equalTo(newAccount.getAccountStatus()));
+		
+		System.out.println(">>>>>>>>>>>>> " + account);
+		System.out.println(">>>>>>>>>>>>> " + account.getCustomerName());
+
+	}
 }
