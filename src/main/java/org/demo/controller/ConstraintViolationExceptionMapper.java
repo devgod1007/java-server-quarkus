@@ -10,7 +10,7 @@ public class ConstraintViolationExceptionMapper implements ExceptionMapper<Const
 
 	@Override
 	public Response toResponse(ConstraintViolationException exception) {
-		String json = String.format("{\"error\":\"%s\"}", exception.getMessage());
+		String json = String.format("{\"validation-error\":\"%s\"}", exception.getMessage());
 		return Response.status(Response.Status.BAD_REQUEST).entity(json).build();
 	}
 
