@@ -64,7 +64,7 @@ public class AccountService implements IAccountService {
 		LOG.debug(String.format("Deposit %s to Account %s", amount, id));
 
 		if (amount == null || amount.compareTo(BigDecimal.ZERO) <= 0) {
-			throw new ApplicationException();
+			throw new ApplicationException("Amount is required and must be greater than 0.");
 		}
 		
 		Account account = entityManager.find(Account.class, id);
@@ -85,7 +85,7 @@ public class AccountService implements IAccountService {
 		LOG.debug(String.format("Deposit %s to Account %s", amount, id));
 
 		if (amount == null || amount.compareTo(BigDecimal.ZERO) <= 0) {
-			throw new ApplicationException();
+			throw new ApplicationException("Amount is required and must be greater than 0.");
 		}
 		
 		Account account = entityManager.find(Account.class, id);

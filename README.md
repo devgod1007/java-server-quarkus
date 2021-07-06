@@ -71,7 +71,7 @@ Get: http://localhost:8080/account/1
 
 ### Account Links
 
-List Accounts: curl -i -X GET http://localhost:8080/account/
+List Accounts: curl -i -X GET http://localhost:8080/account/   curl -i -X GET http://localhost:8080/account/?page=2  curl -i -X GET http://localhost:8080/account/?page=2&size=3
 
 Get Account: curl -i -X GET http://localhost:8080/account/1
 
